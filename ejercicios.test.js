@@ -7,32 +7,28 @@ import {
   calcularTotal
 } from './funciones.js';
 
-describe("formatearPrecio", () => {
-  test("formatea un monto entero con separador de miles", () => {
+describe("iniciales", () => {
+  test("devuelve las iniciales de un nombre y dos apellidos", () => {
     // Arrange
-    const monto = 1500;
+    const nombreCompleto = "juan perez gomez";
     // Act
-    const resultado = formatearPrecio(monto);
+    const resultado = iniciales(nombreCompleto);
     // Assert
-    expect(resultado).toBe("$ 1.500");
+    expect(resultado).toBe("J.P.G.");
   });
 
-  test("formatea un monto con decimales", () => {
-    // le pasamos un float para ver la coma
-    expect(formatearPrecio(1500.5)).toBe("$ 1.500,50");
+  test("funciona con un nombre de una sola palabra", () => {
+    expect(iniciales("ana")).toBe("A.");
   });
 
-  test("formatea el cero", () => {
-    expect(formatearPrecio(0)).toBe("$ 0");
+  test("ignora los espacios de mas", () => {
+    // le meto espacios extra al principio, medio y final
+    expect(iniciales("  ana   maria  ")).toBe("A.M.");
   });
 
-  test("formatea un monto negativo", () => {
-    expect(formatearPrecio(-200)).toBe("-$ 200");
-  });
-
-  test("usa dos separadores de miles en montos de siete cifras", () => {
-    // pruebo con un millon y pico para forzar los dos puntos
-    expect(formatearPrecio(1234567)).toBe("$ 1.234.567");
+  test("devuelve una cadena vacia si el nombre esta vacio", () => {
+    // caso extremo
+    expect(iniciales("")).toBe("");
   });
 });
 
