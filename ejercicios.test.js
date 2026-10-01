@@ -1,22 +1,38 @@
 import { describe, test, it, expect } from 'vitest';
-import { 
-  sumar, 
-  esMayorDeEdad, 
-  saludar, 
-  calcularDescuento, 
-  calcularTotal 
+import {
+  sumar,
+  esMayorDeEdad,
+  saludar,
+  calcularDescuento,
+  calcularTotal
 } from './funciones.js';
 
-describe('calcularDescuento', () => {
-  it('aplicar el 15% a partir de 10 unidades', () => {
-    // arrange (preparacin)
-    const cantidad = 10;
+describe("formatearPrecio", () => {
+  test("formatea un monto entero con separador de miles", () => {
+    // Arrange
+    const monto = 1500;
+    // Act
+    const resultado = formatearPrecio(monto);
+    // Assert
+    expect(resultado).toBe("$ 1.500");
+  });
 
-    // act accion/ajecucion
-    const resultado = calcularDescuento(cantidad);
+  test("formatea un monto con decimales", () => {
+    // le pasamos un float para ver la coma
+    expect(formatearPrecio(1500.5)).toBe("$ 1.500,50");
+  });
 
-    // assert (afirmacion/Verificacion)
-    expect(resultado).toBe(0.15);
+  test("formatea el cero", () => {
+    expect(formatearPrecio(0)).toBe("$ 0");
+  });
+
+  test("formatea un monto negativo", () => {
+    expect(formatearPrecio(-200)).toBe("-$ 200");
+  });
+
+  test("usa dos separadores de miles en montos de siete cifras", () => {
+    // pruebo con un millon y pico para forzar los dos puntos
+    expect(formatearPrecio(1234567)).toBe("$ 1.234.567");
   });
 });
 
