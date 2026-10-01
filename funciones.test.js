@@ -117,9 +117,30 @@ describe("iniciales", () => {
 // varias palabras separadas por muchos espacios, saltos de linea.
 // ─────────────────────────────────────────────────────────────────────
 describe("contarPalabras", () => {
-  test.todo("cuenta las palabras de una frase");
-  test.todo("devuelve 0 con un texto vacio");
-  test.todo("devuelve 0 con un texto de solo espacios");
-  test.todo("no cuenta de mas si hay varios espacios seguidos");
-  test.todo("cuenta bien si hay saltos de linea");
+  test("cuenta las palabras de una frase normal", () => {
+    // Arrange
+    const frase = "hola mundo como estas";
+    // Act
+    const cantPalabras = contarPalabras(frase);
+    // Assert
+    expect(cantPalabras).toBe(4);
+  });
+
+  test("devuelve 0 con un texto vacio", () => {
+    expect(contarPalabras("")).toBe(0);
+  });
+
+  test("devuelve 0 con un texto de solo espacios", () => {
+    expect(contarPalabras("     ")).toBe(0);
+  });
+
+  test("no cuenta de mas si hay varios espacios seguidos", () => {
+    // multiples espacios entre las palabras
+    expect(contarPalabras("hola    mundo   feliz")).toBe(3);
+  });
+
+  test("cuenta bien si hay saltos de linea", () => {
+    // valido que los enters no rompan la cuenta
+    expect(contarPalabras("hola\nmundo\nfeliz")).toBe(3);
+  });
 });
