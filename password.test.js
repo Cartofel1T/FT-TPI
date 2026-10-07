@@ -177,11 +177,56 @@ describe("validarPassword - acumulación de errores", () => {
 
 
 describe("validarPassword - entradas inesperadas", () => {
-  test.todo("rechaza una cadena vacía sin lanzar excepción");
-  test.todo("rechaza null sin lanzar excepción");
-  test.todo("rechaza undefined sin lanzar excepción");
-  test.todo("rechaza un número sin lanzar excepción");
+  test("rechaza una cadena vacía sin lanzar excepción", () => {
+    // Arrange
+    const password = "";
+
+    // Act
+    const resultado = validarPassword(password);
+
+    // Assert
+    expect(resultado.valida).toBe(false);
+    expect(resultado.errores).toContain(MENSAJES.LONGITUD);
+  });
+
+  test("rechaza null sin lanzar excepción", () => {
+    // Arrange
+    const password = null;
+
+    // Act
+    const resultado = validarPassword(password);
+
+    // Assert
+    expect(resultado.valida).toBe(false);
+    expect(resultado.errores).toContain(MENSAJES.TIPO);
+  });
+
+  test("rechaza undefined sin lanzar excepción", () => {
+    // Arrange
+    const password = undefined;
+
+    // Act
+    const resultado = validarPassword(password);
+
+    // Assert
+    expect(resultado.valida).toBe(false);
+    expect(resultado.errores).toContain(MENSAJES.TIPO);
+  });
+
+  test("rechaza un número sin lanzar excepción", () => {
+    // Arrange
+    const password = 12345678;
+
+    // Act
+    const resultado = validarPassword(password);
+
+    // Assert
+    expect(resultado.valida).toBe(false);
+    expect(resultado.errores).toContain(MENSAJES.TIPO);
+  });
 });
+
+
 
 describe("validarPassword - caracteres del español", () => {
   test.todo("acepta una contraseña con ñ");
