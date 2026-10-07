@@ -229,9 +229,55 @@ describe("validarPassword - entradas inesperadas", () => {
 
 
 describe("validarPassword - caracteres del español", () => {
-  test.todo("acepta una contraseña con ñ");
-  test.todo("acepta una contraseña con acentos");
+  test("acepta una contraseña con ñ", () => {
+    // Arrange
+    const password = "Abc1234ñ";
+
+    // Act
+    const resultado = validarPassword(password);
+
+    // Assert
+    expect(resultado).toEqual({ valida: true, errores: [] });
+  });
+
+  test("acepta una contraseña con acentos", () => {
+    // Arrange
+    const password = "Abc1234á";
+
+    // Act
+    const resultado = validarPassword(password);
+
+    // Assert
+    expect(resultado).toEqual({ valida: true, errores: [] });
+  });
 });
+
+describe("validarPassword - casos extra (opcional)", () => {
+  test("acepta una contraseña cuya única mayúscula es acentuada (Á, Ñ)", () => {
+    // Arrange
+    const password = "ábc1234Ñ"; 
+
+    // Act
+    const resultado = validarPassword(password);
+
+    // Assert
+    expect(resultado).toEqual({ valida: true, errores: [] });
+  });
+
+  test("rechaza una contraseña con un tab o salto de línea", () => {
+    // Arrange
+    const password = "Abc1234\n"; 
+
+    // Act
+    const resultado = validarPassword(password);
+
+    // Assert
+    expect(resultado.valida).toBe(false);
+    expect(resultado.errores).toContain(MENSAJES.ESPACIOS);
+  });
+});
+
+
 
 /*
 |
