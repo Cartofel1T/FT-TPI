@@ -252,6 +252,12 @@ describe("validarPassword - caracteres del español", () => {
   });
 });
 
+
+describe("validarPassword - casos extra (opcional)", () => {
+  test.todo("acepta una contraseña cuya única mayúscula es acentuada (Á, Ñ)");
+  test.todo("rechaza una contraseña con un tab o salto de línea");
+});
+
 describe("validarPassword - casos extra (opcional)", () => {
   test("acepta una contraseña cuya única mayúscula es acentuada (Á, Ñ)", () => {
     // Arrange
@@ -285,13 +291,33 @@ describe("validarPassword - casos extra (opcional)", () => {
 | 
 */
 
-describe("validarPassword - casos extra (opcional)", () => {
-  test.todo("acepta una contraseña cuya única mayúscula es acentuada (Á, Ñ)");
-  test.todo("rechaza una contraseña con un tab o salto de línea");
-});
 
 /* ─────────────────────────────────────────────────────────────────────
    DESAFÍO OPCIONAL
    Reescribí los casos de longitud usando `test.each` con una tabla.
    Fijate cómo la tabla del código queda casi igual a la del documento.
    ───────────────────────────────────────────────────────────────────── */
+
+   describe("DESAFÍO OPCIONAL - validarPassword - test.each para límites de longitud", () => {
+    test.each([
+      [7, "Abc123x", false, [MENSAJES.LONGITUD]],
+      [8, "Abc1234x", true, []],
+      [20, "Abc12345678901234567", true, []],
+      [21, "Abc123456789012345678", false, [MENSAJES.LONGITUD]],
+    ])(
+      "Longitud %i: validarPassword('%s') debe tener valida=%s",
+      (longitud, password, validaEsperada, erroresEsperados) => {
+        // Act
+        const resultado = validarPassword(password);
+  
+        // Assert
+        expect(resultado.valida).toBe(validaEsperada);
+        if (validaEsperada) {
+          expect(resultado.errores).toEqual([]);
+        } else {
+          expect(resultado.errores).toContain(erroresEsperados[0]);
+        }
+      }
+    );
+  });
+  
