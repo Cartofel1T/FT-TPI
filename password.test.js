@@ -93,16 +93,88 @@ describe("validarPassword - valores límite de longitud", () => {
 });
 
 describe("validarPassword - reglas de contenido", () => {
-  test.todo("rechaza una contraseña sin números");
-  test.todo("rechaza una contraseña con un espacio al principio");
-  test.todo("rechaza una contraseña con un espacio en el medio");
-  test.todo("rechaza una contraseña con un espacio al final");
+  test("rechaza una contraseña sin números", () => {
+    // Arrange
+    const password = "Abcdefgh"; 
+
+    // Act
+    const resultado = validarPassword(password);
+
+    // Assert
+    expect(resultado.valida).toBe(false);
+    expect(resultado.errores).toContain(MENSAJES.NUMERO);
+  });
+
+  test("rechaza una contraseña con un espacio al principio", () => {
+    // Arrange
+    const password = " Abc1234";
+
+    // Act
+    const resultado = validarPassword(password);
+
+    // Assert
+    expect(resultado.valida).toBe(false);
+    expect(resultado.errores).toContain(MENSAJES.ESPACIOS);
+  });
+
+  test("rechaza una contraseña con un espacio en el medio", () => {
+    // Arrange
+    const password = "Abc 1234";
+
+    // Act
+    const resultado = validarPassword(password);
+
+    // Assert
+    expect(resultado.valida).toBe(false);
+    expect(resultado.errores).toContain(MENSAJES.ESPACIOS);
+  });
+
+  test("rechaza una contraseña con un espacio al final", () => {
+    // Arrange
+    const password = "Abc1234 ";
+
+    // Act
+    const resultado = validarPassword(password);
+
+    // Assert
+    expect(resultado.valida).toBe(false);
+    expect(resultado.errores).toContain(MENSAJES.ESPACIOS);
+  });
 });
 
 describe("validarPassword - acumulación de errores", () => {
-  test.todo("devuelve 2 errores si faltan mayúscula y número");
-  test.todo("devuelve 4 errores si viola todas las reglas");
+  test("devuelve 2 errores si faltan mayúscula y número", () => {
+    // Arrange
+    const password = "abcdefgh"; // sin mayuscula y sin numero
+
+    // Act
+    const resultado = validarPassword(password);
+
+    // Assert
+    expect(resultado.valida).toBe(false);
+    expect(resultado.errores.length).toBe(2);
+    expect(resultado.errores).toContain(MENSAJES.MAYUSCULA);
+    expect(resultado.errores).toContain(MENSAJES.NUMERO);
+  });
+
+  test("devuelve 4 errores si viola todas las reglas", () => {
+    // Arrange
+    const password = " a "; // < 8 chars, sin mayuscula, sin numero, con espacios
+
+    // Act
+    const resultado = validarPassword(password);
+
+    // Assert
+    expect(resultado.valida).toBe(false);
+    expect(resultado.errores.length).toBe(4);
+    expect(resultado.errores).toContain(MENSAJES.LONGITUD);
+    expect(resultado.errores).toContain(MENSAJES.MAYUSCULA);
+    expect(resultado.errores).toContain(MENSAJES.NUMERO);
+    expect(resultado.errores).toContain(MENSAJES.ESPACIOS);
+  });
 });
+
+
 
 describe("validarPassword - entradas inesperadas", () => {
   test.todo("rechaza una cadena vacía sin lanzar excepción");
