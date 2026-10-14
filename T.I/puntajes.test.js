@@ -108,22 +108,30 @@ describe("bonusPorTiempo", () => {
 // ─────────────────────────────────────────────────────────────────────
 describe("podio", () => {
   test("devuelve los nombres de los 3 jugadores con más puntos, de mayor a menor", () => {
-    // Arrange
     const jugadores = [
-      { nombre: "Ana", puntos: 300 },
-      { nombre: "Beto", puntos: 900 },
-      { nombre: "Caro", puntos: 500 },
-      { nombre: "Dani", puntos: 100 },
+      { nombre: "Ana", puntos: 300 }, { nombre: "Beto", puntos: 900 },
+      { nombre: "Caro", puntos: 500 }, { nombre: "Dani", puntos: 100 }
     ];
-
-    // Act
-    const resultado = podio(jugadores);
-
-    // Assert
-    expect(resultado).toEqual(["Beto", "Caro", "Ana"]);
+    expect(podio(jugadores)).toEqual(["Beto", "Caro", "Ana"]);
   });
 
-  // Seguí vos.
+  test("devuelve exactamente 3 jugadores si hay exactamente 3 en la lista", () => {
+    const jugadores = [{ nombre: "Ana", puntos: 300 }, { nombre: "Beto", puntos: 900 }, { nombre: "Caro", puntos: 500 }];
+    expect(podio(jugadores)).toEqual(["Beto", "Caro", "Ana"]);
+  });
+
+  test("devuelve todos los jugadores ordenados si hay menos de 3", () => {
+    expect(podio([{ nombre: "Ana", puntos: 300 }, { nombre: "Beto", puntos: 900 }])).toEqual(["Beto", "Ana"]);
+  });
+
+  test("devuelve un array vacío si la lista está vacía", () => {
+    expect(podio([])).toEqual([]);
+  });
+
+  test("ordena correctamente si el que más puntos tiene está último en la lista original", () => {
+    const jugadores = [{ nombre: "Dani", puntos: 100 }, { nombre: "Ana", puntos: 300 }, { nombre: "Beto", puntos: 900 }];
+    expect(podio(jugadores)).toEqual(["Beto", "Ana", "Dani"]);
+  });
 });
 
 // ─────────────────────────────────────────────────────────────────────
