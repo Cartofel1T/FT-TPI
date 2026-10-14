@@ -59,22 +59,18 @@ describe("calcularPuntaje", () => {
 // donde la medalla CAMBIA: el último de una y el primero de la siguiente.
 // ─────────────────────────────────────────────────────────────────────
 describe("medalla", () => {
-  test("devuelve 'bronce' con un puntaje de 250", () => {
-    expect(medalla(250)).toBe("bronce");
-  });
+  test("devuelve 'bronce' con un puntaje de 250", () => { expect(medalla(250)).toBe("bronce"); });
+  test("devuelve 'sin medalla' con un puntaje de 50", () => { expect(medalla(50)).toBe("sin medalla"); });
+  test("devuelve 'plata' con un puntaje de 700", () => { expect(medalla(700)).toBe("plata"); });
+  test("devuelve 'oro' con un puntaje de 3000", () => { expect(medalla(3000)).toBe("oro"); });
+  test("devuelve 'sin medalla' con 99 puntos (le falta uno para bronce)", () => { expect(medalla(99)).toBe("sin medalla"); });
+  test("devuelve 'bronce' con exactamente 100 puntos", () => { expect(medalla(100)).toBe("bronce"); });
+  test("devuelve 'bronce' con 499 puntos (le falta uno para plata)", () => { expect(medalla(499)).toBe("bronce"); });
+  test("devuelve 'plata' con exactamente 500 puntos", () => { expect(medalla(500)).toBe("plata"); });
 
-  test.todo("devuelve 'sin medalla' con un puntaje de 50");
-  test.todo("devuelve 'plata' con un puntaje de 700");
-  test.todo("devuelve 'oro' con un puntaje de 3000");
-
-  test.todo("devuelve 'sin medalla' con 99 puntos (le falta uno para bronce)");
-  test.todo("devuelve 'bronce' con exactamente 100 puntos");
-
-  test.todo("devuelve 'bronce' con 499 puntos (le falta uno para plata)");
-  test.todo("devuelve 'plata' con exactamente 500 puntos");
-
-  // Falta el cambio de plata a oro.
-  // Escribí vos los dos tests, con su nombre, siguiendo el modelo de arriba.
+  // Casos agregados: cambio de plata a oro
+  test("devuelve 'plata' con 999 puntos (le falta uno para oro)", () => { expect(medalla(999)).toBe("plata"); });
+  test("devuelve 'oro' con exactamente 1000 puntos", () => { expect(medalla(1000)).toBe("oro"); });
 });
 
 // ─────────────────────────────────────────────────────────────────────
