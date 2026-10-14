@@ -144,11 +144,12 @@ describe("podio", () => {
 //   - ¿Y con más de 10 minutos?
 // ─────────────────────────────────────────────────────────────────────
 describe("formatearTiempo", () => {
-  test("devuelve '1:15' cuando pasaron 75 segundos", () => {
-    expect(formatearTiempo(75)).toBe("1:15");
-  });
-
-  // Seguí vos.
+  test("devuelve '1:15' cuando pasaron 75 segundos", () => { expect(formatearTiempo(75)).toBe("1:15"); });
+  test("devuelve '0:00' con 0 segundos", () => { expect(formatearTiempo(0)).toBe("0:00"); });
+  test("devuelve '0:45' con menos de un minuto", () => { expect(formatearTiempo(45)).toBe("0:45"); });
+  test("devuelve '1:00' con un minuto justo", () => { expect(formatearTiempo(60)).toBe("1:00"); });
+  test("devuelve '2:05' cuando sobran menos de 10 segundos (agrega el cero)", () => { expect(formatearTiempo(125)).toBe("2:05"); });
+  test("devuelve '60:00' para una hora entera", () => { expect(formatearTiempo(3600)).toBe("60:00"); });
 });
 
 // ─────────────────────────────────────────────────────────────────────
