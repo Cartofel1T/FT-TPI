@@ -87,11 +87,11 @@ describe("medalla", () => {
 //   4. Recién ahí arreglá `puntajes.js` y mirá cómo el test pasa a verde.
 // ─────────────────────────────────────────────────────────────────────
 describe("bonusPorTiempo", () => {
-  test("da 500 puntos de bonus si el nivel se termina en 30 segundos", () => {
-    expect(bonusPorTiempo(30)).toBe(500);
-  });
-
-  // Seguí vos.
+  test("da 500 puntos de bonus si el nivel se termina en 30 segundos", () => { expect(bonusPorTiempo(30)).toBe(500); });
+  test("da 500 puntos de bonus si el nivel se termina en exactamente 60 segundos", () => { expect(bonusPorTiempo(60)).toBe(500); });
+  test("da 200 puntos de bonus si el nivel se termina en 90 segundos", () => { expect(bonusPorTiempo(90)).toBe(200); });
+  test("da 200 puntos de bonus si el nivel se termina en exactamente 120 segundos", () => { expect(bonusPorTiempo(120)).toBe(200); });
+  test("da 0 puntos de bonus si el nivel se termina en más de 120 segundos", () => { expect(bonusPorTiempo(150)).toBe(0); });
 });
 
 // ─────────────────────────────────────────────────────────────────────
