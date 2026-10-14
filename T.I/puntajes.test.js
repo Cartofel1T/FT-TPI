@@ -32,21 +32,24 @@ import {
 // ─────────────────────────────────────────────────────────────────────
 describe("calcularPuntaje", () => {
   test("suma 10 puntos por cada acierto cuando no hay errores", () => {
-    // Arrange
-    const aciertos = 3;
-    const errores = 0;
-
-    // Act
-    const resultado = calcularPuntaje(aciertos, errores);
-
-    // Assert
-    expect(resultado).toBe(30);
+    expect(calcularPuntaje(3, 0)).toBe(30);
   });
 
-  test.todo("resta 5 puntos por cada error");
-  test.todo("devuelve 0 cuando no hay aciertos ni errores");
-  test.todo("devuelve 0 cuando los errores restan justo lo mismo que suman los aciertos");
-  test.todo("devuelve 0, y no un número negativo, cuando los errores restan más de lo que suman los aciertos");
+  test("resta 5 puntos por cada error", () => {
+    expect(calcularPuntaje(2, 3)).toBe(5);
+  });
+
+  test("devuelve 0 cuando no hay aciertos ni errores", () => {
+    expect(calcularPuntaje(0, 0)).toBe(0);
+  });
+
+  test("devuelve 0 cuando los errores restan justo lo mismo que suman los aciertos", () => {
+    expect(calcularPuntaje(1, 2)).toBe(0);
+  });
+
+  test("devuelve 0, y no un número negativo, cuando los errores restan más de lo que suman los aciertos", () => {
+    expect(calcularPuntaje(1, 3)).toBe(0);
+  });
 });
 
 // ─────────────────────────────────────────────────────────────────────
