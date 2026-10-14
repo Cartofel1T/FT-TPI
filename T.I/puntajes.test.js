@@ -220,27 +220,27 @@ describe("validarNombre", () => {
    ───────────────────────────────────────────────────────────────────
    PREGUNTAS - respondé acá mismo, dentro de este comentario
 
-   1. Ejercicio 3: ¿con qué valor de `segundos` encontraste el error?  ______
-      ¿Qué devolvía la función?  ______   ¿Qué tenía que devolver?  ______
+   1. Ejercicio 3: ¿con qué valor de `segundos` encontraste el error?  ___60___
+      ¿Qué devolvía la función?  _200_   ¿Qué tenía que devolver?  _500_
 
    2. ¿Qué cambiaste en `puntajes.js` para arreglarlo?
-      _______________________________________________________
+      Cambie la condicion de (segundos < 60) a (segundos <= 60)
 
    3. Antes de encontrarlo, ¿cuántos tests de `bonusPorTiempo` tenías en
-      verde?  ______
+      verde?  ___4___
       Estaban en verde y el error estaba igual. ¿Por qué no lo detectaban?
-      _______________________________________________________
+      Porque mis otros tests probaban valores seguros como 30 o 90 segundos, pero ninguno estaba probando justo el limite exacto de 60 segundos que era donde el codigo se equivocaba
 
-   4. Desafío final: ¿en qué función estaba el segundo error?  ____________
-      ¿Con qué entrada lo encontraste?  ____________
+   4. Desafío final: ¿en qué función estaba el segundo error?  validarNombre
+      ¿Con qué entrada lo encontraste?  con un nombre de exactamente 12 caracteres (ej maximiliano9)
       ¿Qué tiene en común esa entrada con la de la pregunta 1?
-      _______________________________________________________
+      Ambas entradas prueban los casos limite o las condiciones frontera exactas estipuladas por la reglas
 
-   5. Verificación: ¿cuántos tests se pusieron en rojo?  ______
+   5. Verificación: ¿cuántos tests se pusieron en rojo?  _2_
       ¿Cuál o cuáles?
-      _______________________________________________________
+      El test de "exactamente 60 segundos" y el test del "limite superior de 12 caracteres"
 
    6. Ejercicio 4: si dos jugadores tienen los mismos puntos, ¿cuál de los
       dos va primero en el podio? ¿Lo dice el comentario de la función?
-      _______________________________________________________
+      El comentario de la funcion no lo dice, va a depender de como el motor de js maneje el metodo sort internamente
    ═══════════════════════════════════════════════════════════════════ */
