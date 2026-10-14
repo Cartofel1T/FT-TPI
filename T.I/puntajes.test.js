@@ -165,24 +165,40 @@ describe("formatearTiempo", () => {
 // ─────────────────────────────────────────────────────────────────────
 describe("validarNombre", () => {
   test("acepta un nombre de 6 caracteres que empieza con letra y no tiene espacios", () => {
-    // Arrange
-    const nombre = "Rayo99";
-
-    // Act
-    const resultado = validarNombre(nombre);
-
-    // Assert
-    expect(resultado).toEqual({ valido: true, errores: [] });
+    expect(validarNombre("Rayo99")).toEqual({ valido: true, errores: [] });
   });
 
   test("rechaza un nombre con un espacio en el medio", () => {
     const resultado = validarNombre("Rayo 99");
-
     expect(resultado.valido).toBe(false);
     expect(resultado.errores).toContain(ERRORES.ESPACIOS);
   });
 
-  // Seguí vos.
+  test("acepta el límite inferior de 3 caracteres", () => {
+    expect(validarNombre("Ana")).toEqual({ valido: true, errores: [] });
+  });
+
+  test("acepta el límite superior de 12 caracteres (ambos inclusive)", () => {
+    expect(validarNombre("Maximiliano9")).toEqual({ valido: true, errores: [] });
+  });
+
+  test("rechaza un nombre de menos de 3 caracteres", () => {
+    expect(validarNombre("Ab").errores).toContain(ERRORES.LONGITUD);
+  });
+
+  test("rechaza un nombre de más de 12 caracteres", () => {
+    expect(validarNombre("SuperJugador1").errores).toContain(ERRORES.LONGITUD);
+  });
+
+  test("rechaza un nombre que no empieza con letra", () => {
+    expect(validarNombre("9Rayo").errores).toContain(ERRORES.INICIAL);
+  });
+
+  test("rechaza un nombre vacío sumando múltiples errores", () => {
+    const resultado = validarNombre("");
+    expect(resultado.errores).toContain(ERRORES.LONGITUD);
+    expect(resultado.errores).toContain(ERRORES.INICIAL);
+  });
 });
 
 /* ═══════════════════════════════════════════════════════════════════
