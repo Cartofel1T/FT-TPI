@@ -1,0 +1,102 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 17px/1.55 var(--body);
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--disp);
+    font-weight: 900;
+    line-height: .95;
+    margin: 0;
+    letter-spacing: .01em;
+}
+
+button,
+input,
+select {
+    font: inherit;
+    color: inherit;
+}
+
+:focus-visible {
+    outline: 3px solid var(--brass);
+    outline-offset: 2px;
+}
+
+.wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+section {
+    padding: 60px 0;
+}
+
+.sh {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+}
+
+.sh h2 {
+    font-size: clamp(40px, 6vw, 64px);
+    text-transform: uppercase;
+}
+
+.sh p {
+    margin: 0;
+    color: var(--mut);
+    max-width: 44ch;
+}
+
+.tw {
+    overflow-x: auto;
+    background: var(--card);
+    border: 1px solid var(--line);
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 640px;
+}
+
+th,
+td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    font-size: 15px;
+    vertical-align: middle;
+}
+
+th {
+    font-family: var(--disp);
+    font-size: 20px;
+    letter-spacing: .04em;
+    background: var(--bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
