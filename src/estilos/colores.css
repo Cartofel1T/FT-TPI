@@ -1,0 +1,28 @@
+:root {
+    --bg: #EEF0F3;
+    --ink: #10203A;
+    --card: #FFFFFF;
+    --line: #CBD2DC;
+    --mut: #566277;
+    --red: #C8102E;
+    --blue: #1B3F8B;
+    --brass: #9A7B2F;
+    --hero: #0E1A30;
+    --heroink: #F3F5F8;
+    --disp: 'Big Shoulders Display', 'Arial Narrow', Impact, sans-serif;
+    --body: 'Karla', system-ui, 'Segoe UI', Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0A1426;
+        --ink: #E7EBF2;
+        --card: #13213B;
+        --line: #2A3956;
+        --mut: #9AA6BC;
+        --red: #E5384F;
+        --blue: #6C93E6;
+        --brass: #D2B25F;
+        --hero: #070F1E;
+    }
+}
