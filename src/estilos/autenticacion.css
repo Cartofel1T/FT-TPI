@@ -1,0 +1,38 @@
+.auth {
+    max-width: 440px;
+    margin: 56px auto;
+    background: var(--card);
+    border: 1px solid var(--line);
+    padding: 32px;
+    border-top: 8px solid var(--red);
+}
+
+.auth h2 {
+    font-size: 48px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+.auth .sub {
+    color: var(--mut);
+    margin: 0 0 20px;
+}
+
+.auth .btn {
+    width: 100%;
+}
+
+.auth .alt {
+    margin: 16px 0 0;
+    color: var(--mut);
+}
+
+.link {
+    background: none;
+    border: 0;
+    color: var(--blue);
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    font-weight: 700;
+}
