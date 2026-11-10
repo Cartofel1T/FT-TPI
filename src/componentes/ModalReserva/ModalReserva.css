@@ -1,0 +1,12 @@
+.ov { position: fixed; inset: 0; background: rgba(5,10,20,.7); z-index: 50; display: flex; align-items: center; justify-content: center; padding: 16px; overflow: auto; }
+.modal { background: var(--card); width: 100%; max-width: 520px; padding: 28px; border-top: 8px solid var(--red); animation: pop .18s ease-out; max-height: 100%; overflow: auto; }
+@keyframes pop { from { transform: scale(.96); opacity: 0; } }
+.modal h2 { font-size: 42px; text-transform: uppercase; margin-bottom: 4px; }
+.modal__dur { margin: 0 0 16px; color: var(--mut); font-size: 14px; }
+.modal__actions { display: flex; gap: 10px; justify-content: flex-end; }
+.slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 8px; margin-bottom: 18px; }
+.slot { padding: 9px 0; border: 1.5px solid var(--line); background: var(--bg); cursor: pointer; border-radius: 3px; font-weight: 500; }
+.slot:hover:not(:disabled) { border-color: var(--blue); }
+.slot.on { background: var(--blue); border-color: var(--blue); color: #fff; }
+.slot:disabled { opacity: .35; text-decoration: line-through; cursor: not-allowed; }
+@media (prefers-reduced-motion: reduce) { .modal { animation: none; } }
