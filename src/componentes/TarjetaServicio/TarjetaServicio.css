@@ -1,0 +1,9 @@
+.svc { background: var(--card); border: 1px solid var(--line); border-left: 8px solid var(--blue); padding: 22px; display: flex; flex-direction: column; gap: 12px; border-radius: 2px; }
+.svc:nth-child(3n+1) { border-left-color: var(--red); }
+.svc:nth-child(3n+2) { border-left-color: var(--blue); }
+.svc:nth-child(3n) { border-left-color: var(--brass); }
+.svc h3 { font-size: 30px; text-transform: uppercase; }
+.svc p { margin: 0; color: var(--mut); font-size: 15px; flex: 1; }
+.svc__meta { display: flex; justify-content: space-between; align-items: baseline; }
+.svc__price { font-family: var(--disp); font-weight: 900; font-size: 34px; }
+.svc__dur { color: var(--mut); font-size: 14px; }
