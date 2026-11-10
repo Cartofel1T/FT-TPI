@@ -1,0 +1,2 @@
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px; margin-bottom: 28px; }
+.panel__cat { margin-top: 44px; }
