@@ -1,0 +1,37 @@
+.btn {
+    background: var(--red);
+    color: #fff;
+    border: 2px solid var(--red);
+    padding: 11px 20px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: transform .12s, background .12s;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    background: #a90d26;
+    border-color: #a90d26;
+}
+
+.btn.ghost {
+    background: transparent;
+    color: inherit;
+    border-color: currentColor;
+}
+
+.btn.ghost:hover {
+    background: rgba(127, 127, 127, .15);
+}
+
+.btn.sm {
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.btn:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+    transform: none;
+}
