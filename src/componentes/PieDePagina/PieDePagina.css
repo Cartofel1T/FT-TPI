@@ -1,0 +1,2 @@
+.footer { background: var(--hero); color: var(--heroink); padding: 30px 0; font-size: 15px; }
+.footer__in { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
