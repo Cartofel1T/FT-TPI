@@ -1,0 +1,3 @@
+.stat { background: var(--card); border: 1px solid var(--line); padding: 14px 16px; }
+.stat b { display: block; font-family: var(--disp); font-size: 44px; line-height: 1; }
+.stat small { color: var(--mut); }
