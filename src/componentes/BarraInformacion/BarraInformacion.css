@@ -1,0 +1,18 @@
+.info {
+    background: var(--card);
+    border-bottom: 1px solid var(--line);
+}
+
+.info__in {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    font-size: 15px;
+    color: var(--mut);
+}
+
+.info strong {
+    color: var(--ink);
+}
