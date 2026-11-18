@@ -7,18 +7,18 @@
     border: 1.5px solid;
 }
 
-.e1 {
+.estado-pendiente {
     color: var(--brass);
 }
 
-.e2 {
+.estado-confirmado {
     color: var(--blue);
 }
 
-.e3 {
+.estado-completado {
     color: #2e8b57;
 }
 
-.e4 {
+.estado-cancelado {
     color: var(--red);
 }

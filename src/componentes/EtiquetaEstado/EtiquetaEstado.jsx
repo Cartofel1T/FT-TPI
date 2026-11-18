@@ -1,6 +1,4 @@
-import { estados } from '../../datos/turnos'
 import './EtiquetaEstado.css'
-export default function EtiquetaEstado({ id }) {
-  const e = estados.find((x) => x.id === id)
-  return <span className={`tag e${id}`}>{e?.nombre}</span>
+export default function EtiquetaEstado({ nombre }) {
+  return <span className={`tag estado-${nombre.toLowerCase()}`}>{nombre}</span>
 }

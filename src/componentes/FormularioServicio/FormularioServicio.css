@@ -1,8 +1,7 @@
 .nuevo-servicio {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr auto;
+    grid-template-columns: 2fr 1fr 1fr;
     gap: 10px;
-    align-items: end;
     background: var(--card);
     border: 1px solid var(--line);
     padding: 16px;
@@ -13,8 +12,20 @@
     margin: 0;
 }
 
+.nuevo-servicio .f:nth-child(4) {
+    grid-column: 1 / -1;
+}
+
+.nuevo-servicio .btn {
+    justify-self: start;
+}
+
 @media (max-width: 720px) {
     .nuevo-servicio {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .nuevo-servicio .f:first-child {
+        grid-column: 1 / -1;
     }
 }
