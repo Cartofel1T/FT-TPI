@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const URL_API = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
 const CLAVE_SESION = 'norte_sesion'
 
@@ -13,27 +15,26 @@ export const borrarSesion = () => {
 
 const capitalizar = (texto) => texto.charAt(0).toUpperCase() + texto.slice(1)
 
-export async function pedir(ruta, { metodo = 'GET', cuerpo } = {}) {
+const cliente = axios.create({ baseURL: URL_API })
+
+cliente.interceptors.request.use((config) => {
   const sesion = leerSesion()
-  const cabeceras = {}
-  if (cuerpo) cabeceras['Content-Type'] = 'application/json'
-  if (sesion?.token) cabeceras.Authorization = `Bearer ${sesion.token}`
+  if (sesion?.token) config.headers.Authorization = `Bearer ${sesion.token}`
+  return config
+})
 
-  let respuesta
-  try {
-    respuesta = await fetch(URL_API + ruta, {
-      method: metodo,
-      headers: cabeceras,
-      body: cuerpo ? JSON.stringify(cuerpo) : undefined,
-    })
-  } catch {
-    throw new Error('no se pudo conectar con el servidor')
+cliente.interceptors.response.use(
+  (respuesta) => respuesta,
+  (error) => {
+    if (!error.response) {
+      return Promise.reject(new Error('no se pudo conectar con el servidor'))
+    }
+    if (error.response.status === 401 && leerSesion()) {
+      window.dispatchEvent(new Event('sesion-vencida'))
+    }
+    const mensaje = error.response.data?.error || 'hubo un error'
+    return Promise.reject(new Error(capitalizar(mensaje)))
   }
+)
 
-  const datos = await respuesta.json().catch(() => null)
-  if (!respuesta.ok) {
-    if (respuesta.status === 401 && sesion) window.dispatchEvent(new Event('sesion-vencida'))
-    throw new Error(capitalizar(datos?.error || 'hubo un error'))
-  }
-  return datos
-}
+export default cliente

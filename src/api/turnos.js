@@ -1,12 +1,12 @@
-import { pedir } from './cliente'
+import cliente from './cliente'
 
-export const listarTurnos = () => pedir('/turnos')
-export const listarEstados = () => pedir('/turnos/estados')
+export const listarTurnos = () => cliente.get('/turnos').then((r) => r.data)
+export const listarEstados = () => cliente.get('/turnos/estados').then((r) => r.data)
 export const horariosDisponibles = (fecha, idServicio) =>
-  pedir(`/turnos/disponibles?fecha=${fecha}&id_servicio=${idServicio}`)
+  cliente.get('/turnos/disponibles', { params: { fecha, id_servicio: idServicio } }).then((r) => r.data)
 export const crearTurno = (id_servicio, fecha_hora) =>
-  pedir('/turnos', { metodo: 'POST', cuerpo: { id_servicio, fecha_hora } })
-export const cancelarTurno = (id) => pedir(`/turnos/${id}/cancelar`, { metodo: 'PATCH' })
+  cliente.post('/turnos', { id_servicio, fecha_hora }).then((r) => r.data)
+export const cancelarTurno = (id) => cliente.patch(`/turnos/${id}/cancelar`).then((r) => r.data)
 export const cambiarEstado = (id, id_estado) =>
-  pedir(`/turnos/${id}/estado`, { metodo: 'PATCH', cuerpo: { id_estado } })
-export const eliminarTurno = (id) => pedir(`/turnos/${id}`, { metodo: 'DELETE' })
+  cliente.patch(`/turnos/${id}/estado`, { id_estado }).then((r) => r.data)
+export const eliminarTurno = (id) => cliente.delete(`/turnos/${id}`).then((r) => r.data)

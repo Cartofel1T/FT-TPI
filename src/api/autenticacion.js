@@ -1,7 +1,7 @@
-import { pedir } from './cliente'
+import cliente from './cliente'
 
 export const iniciarSesion = (email, contrasenia) =>
-  pedir('/auth/login', { metodo: 'POST', cuerpo: { email, contrasenia } })
+  cliente.post('/auth/login', { email, contrasenia }).then((r) => r.data)
 
 export const registrarse = (nombre, email, contrasenia) =>
-  pedir('/auth/registro', { metodo: 'POST', cuerpo: { nombre, email, contrasenia } })
+  cliente.post('/auth/registro', { nombre, email, contrasenia }).then((r) => r.data)
