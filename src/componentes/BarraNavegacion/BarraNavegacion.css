@@ -28,6 +28,7 @@
     cursor: pointer;
     padding: 0;
     margin-right: auto;
+    text-decoration: none;
 }
 
 .logo b {
@@ -35,6 +36,8 @@
 }
 
 .nl {
+    display: inline-block;
+    text-decoration: none;
     background: none;
     border: 0;
     color: inherit;

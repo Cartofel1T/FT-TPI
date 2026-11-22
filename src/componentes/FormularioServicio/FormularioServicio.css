@@ -16,8 +16,11 @@
     grid-column: 1 / -1;
 }
 
-.nuevo-servicio .btn {
-    justify-self: start;
+.nuevo-servicio__acciones {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 @media (max-width: 720px) {

@@ -1,4 +1,7 @@
 .btn {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
     background: var(--red);
     color: #fff;
     border: 2px solid var(--red);
