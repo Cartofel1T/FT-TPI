@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import TarjetaEstadistica from '../../componentes/TarjetaEstadistica/TarjetaEstadistica'
 import EtiquetaEstado from '../../componentes/EtiquetaEstado/EtiquetaEstado'
 import Boton from '../../componentes/Boton/Boton'
 import FormularioServicio from '../../componentes/FormularioServicio/FormularioServicio'
 import { useSesion } from '../../contexto/SesionContexto'
 import { listarTurnos, listarEstados, cambiarEstado, cancelarTurno, eliminarTurno } from '../../api/turnos'
-import { listarServicios, crearServicio, eliminarServicio } from '../../api/servicios'
+import { listarServicios, crearServicio, actualizarServicio, eliminarServicio } from '../../api/servicios'
 import { dinero, fechaCorta, horaDe } from '../../utilidades/formato'
 import './PanelTurnos.css'
 
@@ -20,6 +20,8 @@ export default function PanelTurnos() {
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState('')
   const [aviso, setAviso] = useState('')
+  const [editando, setEditando] = useState(null)
+  const refFormulario = useRef(null)
 
   const cargar = useCallback(async () => {
     try {
@@ -32,6 +34,7 @@ export default function PanelTurnos() {
       setCargando(false)
     }
   }, [esAdmin])
+  useEffect(() => { window.scrollTo(0, 0) }, [])
   useEffect(() => { cargar() }, [cargar])
 
   // Ejecuta una acción del backend, muestra el resultado y recarga los datos
@@ -46,6 +49,19 @@ export default function PanelTurnos() {
       setError(err.message)
       return false
     }
+  }
+
+  // Crea un servicio nuevo o, si hay uno en edición, guarda sus cambios
+  const guardarServicio = async (datos) => {
+    if (!editando) return ejecutar(() => crearServicio(datos), 'Servicio agregado')
+    const ok = await ejecutar(() => actualizarServicio(editando.id_servicio, datos), 'Servicio actualizado')
+    if (ok) setEditando(null)
+    return ok
+  }
+
+  const empezarEdicion = (servicio) => {
+    setEditando(servicio)
+    refFormulario.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
 
   const visibles = turnos.filter((t) => !filtro || t.id_estado === filtro)
@@ -123,13 +139,18 @@ export default function PanelTurnos() {
                   {servicios.map((s) => (
                     <tr key={s.id_servicio}>
                       <td>{s.nombre}</td><td>{dinero(s.precio)}</td><td>{s.duracion} min</td>
-                      <td><Boton variant="ghost" size="sm" onClick={() => ejecutar(() => eliminarServicio(s.id_servicio), 'Servicio eliminado')}>Eliminar</Boton></td>
+                      <td>
+                        <Boton variant="ghost" size="sm" onClick={() => empezarEdicion(s)}>Editar</Boton>{' '}
+                        <Boton variant="ghost" size="sm" onClick={() => ejecutar(() => eliminarServicio(s.id_servicio), 'Servicio eliminado')}>Eliminar</Boton>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-            <FormularioServicio onCrear={(datos) => ejecutar(() => crearServicio(datos), 'Servicio agregado')} />
+            <div ref={refFormulario}>
+              <FormularioServicio inicial={editando} onGuardar={guardarServicio} onCancelar={() => setEditando(null)} />
+            </div>
           </div>
         )}
       </div>

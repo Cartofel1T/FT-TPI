@@ -1,13 +1,15 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Link, Redirect } from 'wouter'
 import Campo from '../../componentes/Campo/Campo'
 import Boton from '../../componentes/Boton/Boton'
 import { useSesion } from '../../contexto/SesionContexto'
 import '../../estilos/autenticacion.css'
-export default function Registro({ onNavigate }) {
-  const { registrar } = useSesion()
+export default function Registro() {
+  const { usuario, registrar } = useSesion()
   const [datos, setDatos] = useState({ nombre: '', email: '', contrasenia: '' })
   const [error, setError] = useState('')
   const [enviando, setEnviando] = useState(false)
+  useEffect(() => { window.scrollTo(0, 0) }, [])
   const cambiar = (campo) => (e) => setDatos({ ...datos, [campo]: e.target.value })
 
   const enviar = async (e) => {
@@ -15,11 +17,13 @@ export default function Registro({ onNavigate }) {
     setError(''); setEnviando(true)
     try {
       await registrar(datos.nombre, datos.email, datos.contrasenia)
-      onNavigate('home')
     } catch (err) {
       setError(err.message); setEnviando(false)
     }
   }
+
+  // Con la sesión iniciada (recién registrado o ya logueado) va al inicio
+  if (usuario) return <Redirect to="/" />
 
   return (
     <form className="auth" onSubmit={enviar}>
@@ -30,7 +34,7 @@ export default function Registro({ onNavigate }) {
       <Campo label="Correo electrónico" type="email" autoComplete="email" required value={datos.email} onChange={cambiar('email')} />
       <Campo label="Contraseña (mínimo 6 caracteres)" type="password" autoComplete="new-password" required minLength={6} value={datos.contrasenia} onChange={cambiar('contrasenia')} />
       <Boton type="submit" disabled={enviando}>{enviando ? 'Creando…' : 'Crear cuenta'}</Boton>
-      <p className="alt">¿Ya tenés cuenta? <button type="button" className="link" onClick={() => onNavigate('login')}>Iniciar sesión</button></p>
+      <p className="alt">¿Ya tenés cuenta? <Link href="/login" className="link">Iniciar sesión</Link></p>
     </form>
   )
 }
